@@ -8,19 +8,38 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.util.Pair;
 
-
-
+/**
+ *  Tablero del juego.
+ * 
+ * @author Haris Muneer.
+ */
 public class Board 
 {
-    private int numberOfMines;	
+    /**
+     * Número de minas en la partida.
+     */
+    private int numberOfMines;
+    
+    /**
+     * Array bidimensional con las celdas de la partida.
+     */
     private Cell cells[][];
 
+    /**
+     * Número de filas del tablero.
+     */
     private int rows;
+    
+    /**
+     * Número de columnas del tablero.
+     */
     private int cols;
 
         
     //---------------------------------------------//
-    
+    /**
+     * Constructor de la clase.
+     */
     public Board(int numberOfMines, int r, int c)
     {
         this.rows = r;
@@ -41,7 +60,9 @@ public class Board
 
 
     //------------------------------------------------------------------//
-    //STEP 1//
+    /**
+     * 1er método a llamar. Creador de celdas vacías.
+     */
     public void createEmptyCells()
     {
         for (int x = 0; x < cols; x++)
@@ -54,7 +75,9 @@ public class Board
     }
 
     //------------------------------------------------------------------//
-    //STEP 2//
+    /**
+     * 2º método a llamar. Colocador de minas.
+     */
     public void setMines()
     {
         int x,y;
@@ -81,7 +104,9 @@ public class Board
     //------------------------------------------------------------------//
 
     //------------------------------------------------------------------//
-    //STEP 3//
+    /**
+     * 3er método a llamar. Asginador de minas que hay en su alrededor en cada casilla.
+     */
     public void setSurroundingMinesNumber()
     {	
         for(int x = 0 ; x < cols ; x++) 
@@ -98,8 +123,13 @@ public class Board
 
 
     //---------------------HELPER FUNCTIONS---------------------------//        
-
-    //Calculates the number of surrounding mines ("neighbours")
+    /**
+     * Método para calcular el número de minas de sus adyacentes.
+     * 
+     * @param xCo Posición horizontal de la celda a calcular.
+     * @param yCo Posición vertical de la celda a calcular.
+     * @return Entero con el número de minas que hay.
+     */
     public int calculateNeighbours(int xCo, int yCo)
     {
         int neighbours = 0;
@@ -121,8 +151,13 @@ public class Board
     }
 
     //------------------------------------------------------------------//	
-
-    //Simply makes a coordinate a valid one (i.e within the boundaries of the Board)
+    /**
+     * Método para estabilizar la posición horizontal en los bordes, es decir,
+     *  no permite que se pase de índices.
+     * 
+     * @param i Posición horizontal.
+     * @return Posición horizontal corregida.
+     */
     public int makeValidCoordinateX(int i)
     {
         if (i < 0)
@@ -133,7 +168,13 @@ public class Board
         return i;
     }	
     
-    //Simply makes a coordinate a valid one (i.e within the boundaries of the Board)
+    /**
+     * Método para estabilizar la posición vertical en los bordes, es decir,
+     *  no permite que se pase de índices.
+     * 
+     * @param i Posición vertical.
+     * @return Posición vertical corregida.
+     */
     public int makeValidCoordinateY(int i)
     {
         if (i < 0)
@@ -147,8 +188,11 @@ public class Board
     //------------------------------------------------------------------//	        
 
     //-------------DATA BASE------------------------//
-    
-    // to check whether there is a save game or not
+    /**
+     * Comprueba si hay una partida guardada en la base de datos.
+     * 
+     * @return TRUE si la hay, FALSE en otro caso.
+     */
     public boolean checkSave()
     {
         Connection connection = null;
@@ -186,8 +230,11 @@ public class Board
     }
     
     //--------------LOAD SAVED GAME-----------------//
-    
-    
+    /**
+     * Carga una partida guardada desde la base de datos.
+     * 
+     * @return Datos de la partida guardada.
+     */
     public Pair loadSaveGame()
     {
         Connection connection = null;
@@ -248,6 +295,9 @@ public class Board
     
     
     //------------------------------------------------------------------------//
+    /**
+     * Borra una partida salvada de la base de datos.
+     */
     public void deleteSavedGame()
     {
         Connection connection = null;
@@ -282,6 +332,13 @@ public class Board
     
            
     //--------------SAVE GAME IN DATABASE-----------//
+    /**
+     * Guarda una partida en la base de datos, incluyendo el estado de la misma
+     *  (posiciones minas, celdas descubiertas, etc.).
+     * 
+     * @param timer Número de segundos de la partida actual.
+     * @param mines Número de minas de la partida actual.
+     */
     public void saveGame(int timer, int mines)
     {
         Connection connection = null;
@@ -338,32 +395,60 @@ public class Board
     
     //--------------------------------------------//
     //---------GETTERS AND SETTERS-------------//
+    /**
+     * Setter con el número de minas de la partida.
+     * 
+     * @param numberOfMines El número de minas de la partida.
+     */
     public void setNumberOfMines(int numberOfMines)
     {
         this.numberOfMines = numberOfMines;
     }
 
+    /**
+     * Getter del número de minas de la partida.
+     * 
+     * @return El número de minas de la partida.
+     */
     public int getNumberOfMines()
     {
         return numberOfMines;
     }
 
+    /**
+     * Getter de las celdas de la partida.
+     * 
+     * @return Las celdas de la partida.
+     */
     public Cell[][] getCells()
     {
         return cells;
     }
     
+    /**
+     * Getter del número de filas de la partida.
+     * 
+     * @return El número de filas de la partida.
+     */
     public int getRows()
     {
         return rows;
     }
     
+    /**
+     * Getter del número de columnas de la partida.
+     * 
+     * @return El número de columnas de la partida.
+     */
     public int getCols()
     {
         return cols;
     }
+    
     //-----------------------------------------//
-
+    /**
+     * Método para resetear la partida y empezar de nuevo.
+     */
     public void resetBoard()
     {
         for(int x = 0 ; x < cols ; x++) 

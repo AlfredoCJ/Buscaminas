@@ -12,39 +12,84 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.Comparator;
 
-
+/**
+ * Clase que almacena los datos de las partidas jugadas.
+ * 
+ * @author Haris Muneer.
+ */
 public class Score
 {
+    /**
+     * ArrayList con los mejores tiempos.
+     */
     ArrayList<Time> bestTimes;
     
+    /**
+     * Número de partidas jugadas.
+     */
     int gamesPlayed;
+    /**
+     * Número de partidas ganadas.
+     */
     int gamesWon;
        
+    /**
+     * Número máximo de partidas ganadas consecutivamente.
+     */
     int longestWinningStreak;
+    /**
+     * Número máximo de partidas perdidas consecutivamente.
+     */
     int longestLosingStreak;
     
+    /**
+     * Número de partidas consecutivas actual.
+     */
     int currentStreak;
 
+    /**
+     * Número de partidas ganadas consecutivas actual.
+     */
     int currentWinningStreak;
+    /**
+     * Número de partidas perdidas consecutivas actual.
+     */
     int currentLosingStreak;
     
+    /**
+     * Constructor de la clase.
+     */
     public Score()
     {
         gamesPlayed = gamesWon = currentStreak = longestLosingStreak = longestWinningStreak = currentWinningStreak = currentLosingStreak = 0;
         bestTimes = new ArrayList();
     }
     
-    
+    /**
+     * Getter para saber las partidas jugadas.
+     * 
+     * @return Entero con las partidas jugadas.
+     */
     public int getGamesPlayed()
     {
         return gamesPlayed;        
     }
     
+    /**
+     * Getter para saber las partidas ganadas.
+     * 
+     * @return Entero con las partidas ganadas.
+     */
     public int getGamesWon()
     {        
         return gamesWon;
     }
     
+    /**
+     * Getter para saber el porcentaje de partidas ganadas.
+     * 
+     * @return Entero con el porcentaje de partidas ganadas.
+     */
     public int getWinPercentage()
     {
         double gP = gamesPlayed;
@@ -55,45 +100,82 @@ public class Score
         return (int)percentage;
     }
     
+    /**
+     * Getter para saber el número máximo de partidas ganadas consecutivas.
+     * 
+     * @return Entero con el número máximo de partidas ganadas consecutivas.
+     */
     public int getLongestWinningStreak()
     {
         return longestWinningStreak;
     }
     
+    /**
+     * Getter para saber el número máximo de partidas perdidas consecutivas.
+     * 
+     * @return Entero con el número máximo de partidas perdidas consecutivas.
+     */
     public int getLongestLosingStreak()
     {
         return longestLosingStreak;
     }
     
+    /**
+     * Getter para saber el número actual de partidas jugadas consecutivas..
+     * 
+     * @return Entero con el número actual de partidas jugadas consecutivas.
+     */
     public int getCurrentStreak()
     {
         return currentStreak;
     }
     
+    /**
+     * Getter para saber el número actual de partidas perdidas consecutivas.
+     * 
+     * @return Entero con el número actual de partidas perdidas consecutivas.
+     */
     public int getCurrentLosingStreak()
     {
         return currentLosingStreak;
     }
 
+    /**
+     * Getter para saber el número actual de partidas ganadas consecutivas.
+     * 
+     * @return Entero con el número actual de partidas ganadas consecutivas.
+     */
     public int getCurrentWinningStreak(){
         return currentWinningStreak;
     }
     
+    /**
+     * Método para incrementar el número de partidas ganadas.
+     */
     public void incGamesWon()
     {
         gamesWon++;
     }
     
+    /**
+     * Método para incrementar el número de partidas jugadas.
+     */
     public void incGamesPlayed()
     {
         gamesPlayed++;
     }
     
+    /**
+     * Método para incrementar el número de partidas consecutivas.
+     */
     public void incCurrentStreak()
     {
         currentStreak++;
     }
     
+    /**
+     * Método para incrementar el número de partidas perdidas consecutivas.
+     */
     public void incCurrentLosingStreak()
     {
         currentLosingStreak++;
@@ -104,6 +186,9 @@ public class Score
         }                
     }
 
+    /**
+     * Método para incrementar el número de partidas ganadas consecutivas.
+     */
     public void incCurrentWinningStreak()
     {
         currentWinningStreak++;
@@ -114,26 +199,39 @@ public class Score
         }                
     }
     
-    
+    /**
+     * Método para decrementar el número de partidas consecutivas.
+     */
     public void decCurrentStreak()
     {        
         currentStreak--;
     }    
     
-    
+    /**
+     * Método para reiniciar el contador de partidas.
+     */
     public void resetScore()
     {
         gamesPlayed = gamesWon = currentStreak = longestLosingStreak = longestWinningStreak = currentWinningStreak = currentLosingStreak = 0;
     }
     
-    
-    
+    /**
+     * Getter para conocer los mejores tiempos.
+     * 
+     * @return ArrayList<Time> con los mejores tiempos.
+     */
     public ArrayList<Time> getBestTimes()
     {
         return bestTimes;
     }
         
-    
+    /**
+     * Método para añadir un tiempo. Al añadirlo, lo añade en orden y elimina
+     * el peor si la lista tiene más de 5.
+     * 
+     * @param time Tiempo a añadir.
+     * @param date Fecha de realización de ese tiempo.
+     */
     public void addTime(int time, Date date)
     {
         bestTimes.add(new Time(time,date));
@@ -149,6 +247,11 @@ public class Score
     //------------DATABASE--------------------------//
     
     //------------POPULATE FROM DATABASE------------//
+    /**
+     * Método que accede a la base de datos para solicitar los mejores tiempos y resultados.
+     * 
+     * @return TRUE en caso de que todo haya ido bien, FALSE si ha habido algún error.
+     */
     public boolean populate()
     {
         Connection connection = null;
@@ -213,7 +316,9 @@ public class Score
         }
     }
 
-    
+    /**
+     * Método para guardar los datos en la base de datos.
+     */
     public void save()
     {
         Connection connection = null;
@@ -281,6 +386,9 @@ public class Score
     
     
     //---------------------------------------------------//
+    /**
+     * Clase interna para comparar tiempos.
+     */
     public class TimeComparator implements Comparator<Time>
     {
         @Override
@@ -295,21 +403,40 @@ public class Score
     }
 
     //----------------------------------------------------------//
+    /**
+     * Clase interna para la gestión de tiempos en fecha.
+     */
     public class Time{
         Date date;
         int time;
         
+        /**
+         * Constructor.
+         * 
+         * @param t Tiempo conseguido en el juego.
+         * @param d Fecha de consecución.
+         */
         public Time(int t, Date d)
         {
             time = t;
             date = d;
         }
         
+        /**
+         * Getter de la fecha.
+         * 
+         * @return La fecha.
+         */
         public Date getDateValue()
         {
             return date;
         }
         
+        /**
+         * Getter del tiempo del juego.
+         * 
+         * @return El tiempo del juego.
+         */
         public int getTimeValue()
         {
             return time;

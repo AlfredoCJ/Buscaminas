@@ -1,6 +1,5 @@
 package minesweeper;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,23 +21,42 @@ import javafx.util.Pair;
 import javax.swing.border.TitledBorder;
 import minesweeper.Score.Time;
 
-
-
-// This is the main controller class
+/**
+ * Esta clase es la que controla el juego y, por tanto, es la más importante.
+ * 
+ * @author Haris Muneer.
+ */
 public class Game implements MouseListener, ActionListener, WindowListener
 {
+    /**
+     * Ruta a la base de datos.
+     */
     public static String dbPath;
-    // "playing" indicates whether a game is running (true) or not (false).
+    
+    /**
+     * Booleano que indica si se está jugando (TRUE) o no (FALSE).
+     */
     private boolean playing; 
 
+    /**
+     * El tablero de la partida.
+     */
     private Board board;
 
+    /**
+     * Ventana que muestra la partida.
+     */
     private UI gui;
     
+    /**
+     * Puntuación actual del jugador.
+     */
     private Score score;
         
     //------------------------------------------------------------------//        
-
+    /**
+     * Constructor de la clase.
+     */
     public Game()
     {
         // set db path
@@ -78,6 +96,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
 
     //-----------------Load Save Game (if any)--------------------------//
     
+    /**
+     * Método que se encarga de mostrar el resultado final de la partida.
+     */
     public void resumeGame()
     {
         if(board.checkSave())
@@ -121,6 +142,10 @@ public class Game implements MouseListener, ActionListener, WindowListener
 
 
     //-------------------------------------------------//
+    /**
+     * Método que se encarga de comprobar el contenido de la tabla y, dependiendo
+     * del valor: lo deja con valores iniciales, hará mostrar una bandera, etc.
+     */
     public void setButtonImages()
     {
         Cell cells[][] = board.getCells();
@@ -157,7 +182,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
     
     
     //------------------------------------------------------------//
-        
+    /**
+     * Crea y prepara el tablero con tamaño y número de bombas.
+     */
     public void createBoard()
     {
         // Create a new board        
@@ -171,6 +198,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
     
 
     //---------------------------------------------------------------//
+    /**
+     * Crea un nuevo juego.
+     */
     public void newGame()
     {                
         this.playing = false;        
@@ -182,8 +212,11 @@ public class Game implements MouseListener, ActionListener, WindowListener
         gui.initGame();
         gui.setMines(board.getNumberOfMines());
     }
+
     //------------------------------------------------------------------------------//
-    
+    /**
+     * Resetea el juego, casi identico a crear uno nuevo.
+     */
     public void restartGame()
     {
         this.playing = false;
@@ -197,6 +230,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
     }
         
     //------------------------------------------------------------------------------//    
+    /**
+     * Método que finaliza el juego, guarda la puntuación y muestra el tablero.
+     */
     private void endGame()
     {
         playing = false;
@@ -205,9 +241,10 @@ public class Game implements MouseListener, ActionListener, WindowListener
         score.save();
     }
 
-    
     //-------------------------GAME WON AND GAME LOST ---------------------------------//
-    
+    /**
+     * Método que se ejecuta en caso de ganar el juego.
+     */
     public void gameWon()
     {
         score.incCurrentStreak();
@@ -314,6 +351,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
         dialog.setVisible(true);                        
     }
     
+    /**
+     * Método que se ejecuta en caso de perder el juego.
+     */
     public void gameLost()
     {
         score.decCurrentStreak();
@@ -420,6 +460,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
     
     
     //--------------------------------SCORE BOARD--------------------------------------//
+    /**
+     * Método que muestra los resultados estadísticos del juego.
+     */
     public void showScore()
     {
         //----------------------------------------------------------------//
@@ -532,7 +575,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
     //------------------------------------------------------------------------------//
 	
         
-    // Shows the "solution" of the game.
+    /**
+     * Método que muestra el tablero y sus soluciones.
+     */
     private void showAll()
     {
         String cellSolution;
@@ -605,7 +650,12 @@ public class Game implements MouseListener, ActionListener, WindowListener
 
     
     //--------------------------------------------------------------------------//
-    
+    /**
+     * Método de test para comprobar si el juego ha terminado, es decir, las casillas
+     *  y solo esas que dejado sin descubrir tienen minas.
+     * 
+     * @return Devuelver verdad si ha acabado, y falso si no.
+     */
     public boolean isFinished()
     {
         boolean isFinished = true;
@@ -638,6 +688,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
 
  
     //Check the game to see if its finished or not
+    /**
+     * Comprueba si se ha ganado, en caso afirmativo, llama al método adecuado.
+     */
     private void checkGame()
     {		
         if(isFinished()) 
@@ -649,9 +702,12 @@ public class Game implements MouseListener, ActionListener, WindowListener
     //----------------------------------------------------------------------/
        
     
-    /*
-     * If a player clicks on a zero, all surrounding cells ("neighbours") must revealed.
-     * This method is recursive: if a neighbour is also a zero, his neighbours must also be revealed.
+    /**
+     * Método que al descubrir un 0 (o posición sin número), empieza a descubrir
+     * todas las casillas de este tipo y las adyacentes.
+     * 
+     * @param xCo Entero con la posición horizontal que se quiere comprobar.
+     * @param yCo Entero con la posición vertical que se quiere comprobar. 
      */
     public void findZeroes(int xCo, int yCo)
     {
@@ -697,6 +753,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
             }
         }
     }
+    
     //-----------------------------------------------------------------------------//
     //This function is called when clicked on closed button or exit
     @Override
@@ -765,7 +822,6 @@ public class Game implements MouseListener, ActionListener, WindowListener
     }
     
     //-----------------------------------------------------------------------//
-
     @Override
     public void actionPerformed(ActionEvent e) {        
         JMenuItem menuItem = (JMenuItem) e.getSource();
@@ -816,7 +872,6 @@ public class Game implements MouseListener, ActionListener, WindowListener
     
     
     //--------------------------------------------------------------------------//
-        
     //Mouse Click Listener
     @Override
     public void mouseClicked(MouseEvent e)

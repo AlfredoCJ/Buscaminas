@@ -1,56 +1,127 @@
 package minesweeper;
 
-
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-
+/**
+ * Clase que se encarga de la ventana del juego, es decir, del Interfaz gráfico de Usuario.
+ * 
+ * @author Haris Muneer.
+ */
 public class UI extends JFrame
 {
-    // The buttons
+    /**
+     * Botones que se usarán para pulsar sobre ellos.
+     */
     private JButton[][] buttons;
     
-    // Number of Buttons in Grid
+    /**
+     * Número de filas del tablero.
+     */
     private int rows;
+    /**
+     * Número de columnas del tablero.
+     */
     private int cols;
     
-    // Labels 
+    /**
+     * Texto para las minas restantes.
+     */
     private JLabel minesLabel;
+    /**
+     * Número de minas restantes.
+     */
     private int mines;
     
+    /**
+     * Texto para el tiempo transcurrido.
+     */
     private JLabel timePassedLabel;    
+    /**
+     * Temporizador usado para controlar el tiempo.
+     */
     private Thread timer;
+    /**
+     * Tiempo transcurrido (en segundos).
+     */
     private int timePassed;
+    /**
+     * Booleando que indica si el tiempo está parado (TRUE) o no (FALSE).
+     */
     private boolean stopTimer;
     
-    // Frame settings
+    /**
+     * Título.
+     */
     private final String FRAME_TITLE = "Minesweeper ~ Developed by Haris Muneer";
     
+    /**
+     * Ancho de la ventana.
+     */
     private int FRAME_WIDTH = 520;
+    /**
+     * Alto de la ventana.
+     */
     private int FRAME_HEIGHT = 550;
+    /**
+     * Posición horizontal de la ventana en la pantalla.
+     */
     private int FRAME_LOC_X = 430;
+    /**
+     * Posición vertical de la ventana en la pantalla.
+     */
     private int FRAME_LOC_Y = 50;
 
-    // Icons
+    /**
+     * Icono de una mina explotada.
+     */
     private Icon redMine;
+    /**
+     * Icono de una mina no explotada.
+     */
     private Icon mine;
+    /**
+     * Icono de una bandera.
+     */
     private Icon flag;
+    /**
+     * Icono de un valor textual.
+     */
     private Icon tile;
     
     
-    // Menu Bar and Items
-    
+    /**
+     * Barra de menú.
+     */
     private JMenuBar menuBar;
+    /**
+     * Menú del juego.
+     */
     private JMenu gameMenu;
+    /**
+     * Opción de menú para jugar una nueva partida.
+     */
     private JMenuItem newGame;
+    /**
+     * Opción de menú para mostrar las estadísticas.
+     */
     private JMenuItem statistics;
+    /**
+     * Opción de menú para salir.
+     */
     private JMenuItem exit;
 
     
-    
     //---------------------------------------------------------------//
+    /**
+     * Constructor.
+     * 
+     * @param r Numero de filas.
+     * @param c Numero de columnas.
+     * @param m Numero de minas. 
+     */
     public UI(int r, int c, int m)
     {                
         this.rows = r;
@@ -204,7 +275,9 @@ public class UI extends JFrame
 
     //-----------------------Related to Timer------------------------//
     
-    // Starts the timer
+    /**
+     * Método que activa el temporizador de tiempo.
+     */
     public void startTimer()
     {        
         stopTimer = false;
@@ -232,7 +305,9 @@ public class UI extends JFrame
        timer.start();
     }
 
-    
+    /**
+     * Método que para el temporizador de tiempo.
+     */
     public void interruptTimer()
     {
         stopTimer = true;
@@ -248,12 +323,20 @@ public class UI extends JFrame
         }        
     }
     
+    /**
+     * Método que resetea el temporizador de tiempo.
+     */
     public void resetTimer()
     {
         timePassed = 0;
         timePassedLabel.setText("  " + timePassed + "  ");        
     }
 
+    /**
+     * Método para mostrar el tiempo pasado en la ventana.
+     * 
+     * @param t Entero con el tiempo pasado.
+     */
     public void setTimePassed(int t)
     {
         timePassed = t;
@@ -261,8 +344,10 @@ public class UI extends JFrame
     }
     
     //-----------------------------------------------------------//
-    
-    
+    /**
+     * Método que inicia el juego gráficamente, es decir: pone las casillas en
+     * modo oculto y las activa todas.
+     */
     public void initGame()
     {
         hideAll();
@@ -270,8 +355,9 @@ public class UI extends JFrame
     }
     
     //------------------HELPER FUNCTIONS-----------------------//
-
-    //Makes buttons clickable
+    /**
+     * Método que activa las casillas para que se les pueda pulsar en ellas.
+     */
     public void enableAll()
     {
         for( int x=0 ; x<cols ; x++ ) 
@@ -283,7 +369,9 @@ public class UI extends JFrame
         }
     }
 
-    //Makes buttons non-clickable
+    /**
+     * Método que desactiva las casillas para que NO se les pueda pulsar en ellas.
+     */
     public void disableAll()
     {
         for( int x=0 ; x<cols ; x++ ) 
@@ -296,7 +384,9 @@ public class UI extends JFrame
     }
 
 
-    //Resets the content of all buttons
+    /**
+     * Método que oculta todas las casillas, mostrandolas en modo inicial.
+     */
     public void hideAll()
     {
         for( int x=0 ; x<cols ; x++ ) 
@@ -312,7 +402,11 @@ public class UI extends JFrame
 
     
     //---------------SET LISTENERS--------------------------//
-    
+    /**
+     * Método que prepara los botones diciendoles que controlador los va ha atender.
+     * 
+     * @param game Es el controlador que los atenderá.
+     */
     public void setButtonListeners(Game game)
     {
         addWindowListener(game);
@@ -338,12 +432,21 @@ public class UI extends JFrame
     
     
     //-----------------GETTERS AND SETTERS--------------------//
-    
+    /**
+     * Getter para pedir el array de botones.
+     * 
+     * @return El array de botones.
+     */
     public JButton[][] getButtons()
     {
         return buttons;
     }
     
+    /**
+     * Getter para saber el tiempo que ha pasado.
+     * 
+     * @return El tiempo que ha pasado.
+     */
     public int getTimePassed()
     {
         return timePassed;
@@ -351,7 +454,11 @@ public class UI extends JFrame
 
 
     //----------------------SET LOOK------------------------------//
-    
+    /**
+     * Método para suavizar el mostrado de la ventana.
+     * 
+     * @param look Nombre de la ventana a suavizar.
+     */
     public static void setLook(String look)
     {
         try {
@@ -367,31 +474,54 @@ public class UI extends JFrame
     }
 
     //-------------------------------------------------------------//
-    
+    /**
+     * Setter para mostrar el número de minas restantes.
+     * 
+     * @param m El número de minas restantes.
+     */
     public void setMines(int m)
     {
         mines = m;
         minesLabel.setText("  " + Integer.toString(m) + "  ");
     }
     
+    /**
+     * Método para incrementar el número de minas y mostrarlo.
+     */
     public void incMines()
     {
         mines++;
         setMines(mines);
     }
     
+    /**
+     * Método para decrementar el número de minas y mostrarlo.
+     */
     public void decMines()
     {
         mines--;
         setMines(mines);
     }
     
+    /**
+     * Getter para pedir el número de minas restante.
+     * 
+     * @return El número de minas restante.
+     */
     public int getMines()
     {
         return mines;
     }
             
     //--------------------Related to Icons----------------------------//
+    /**
+     * Método para redimensionar una imágen de un icono.
+     * 
+     * @param icon La imágen del icono a redimensionar.
+     * @param resizedWidth Ancho de la imagen del icono a redimensionar.
+     * @param resizedHeight Alto de la imagen del icono a redimensionar.
+     * @return La imagen del icono redimensionado.
+     */
     private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) 
     {
         Image img = icon.getImage();  
@@ -399,6 +529,9 @@ public class UI extends JFrame
         return new ImageIcon(resizedImage);
     }    
     
+    /**
+     * Método para cargar los iconos desde los archivos del proyecto.
+     */
     public void setIcons()
     {
        //---------------------Set Icons-----------------------------//
@@ -425,21 +558,41 @@ public class UI extends JFrame
         
     }
     
+    /**
+     * Getter para pedir el icono de una mina.
+     * 
+     * @return El icono de una mina.
+     */
     public Icon getIconMine()
     {
         return mine;
     }
 
+    /**
+     * Getter para pedir el icono de una mina explotada.
+     * 
+     * @return El icono de una mina explotada.
+     */
     public Icon getIconRedMine()
     {
         return redMine;
     }
     
+    /**
+     * Getter para pedir el icono de una bandera.
+     * 
+     * @return El icono de una bandera.
+     */
     public Icon getIconFlag()
     {
         return flag;
     }
     
+    /**
+     * Getter para pedir el icono de una casilla sin pulsar.
+     * 
+     * @return El icono de una casilla sin pulsar.
+     */
     public Icon getIconTile()
     {
         return tile;       
@@ -447,6 +600,11 @@ public class UI extends JFrame
     
     
     //---------------------------------------------------------------------//
+    /**
+     * Método que asigna los colores de fondo según sea el valor del texto.
+     * 
+     * @param b JButton a asignar.
+     */
     public void setTextColor(JButton b)
     {
         if (b.getText().equals("1"))
