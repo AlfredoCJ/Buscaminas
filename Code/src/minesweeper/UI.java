@@ -55,7 +55,7 @@ public class UI extends JFrame
     /**
      * Título.
      */
-    private final String FRAME_TITLE = "Minesweeper ~ Developed by Haris Muneer";
+    private final String FRAME_TITLE = "Buscaminas ~ Desarrollado por Haris Muneer - Modificado por Alfredo C.J.";
     
     /**
      * Ancho de la ventana.
@@ -227,15 +227,15 @@ public class UI extends JFrame
         //------------------Menu--------------------------//
         menuBar = new JMenuBar();
         
-        gameMenu = new JMenu("Game");
+        gameMenu = new JMenu("Juego");
          
-        newGame = new JMenuItem("   New Game");
-        statistics = new JMenuItem("   Statistics");
-        exit = new JMenuItem("   Exit");
+        newGame = new JMenuItem("   Nuevo juego");
+        statistics = new JMenuItem("   Estadisticas");
+        exit = new JMenuItem("   Salir");
 
-        newGame.setName("New Game");
-        statistics.setName("Statistics");
-        exit.setName("Exit");
+        newGame.setName("Nuevo juego");
+        statistics.setName("Estadisticas");
+        exit.setName("Salir");
 
         gameMenu.add(newGame);
         gameMenu.add(statistics);
