@@ -125,21 +125,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
             {
                 case JOptionPane.YES_OPTION:      
       
-                    //load board's state
-                    Pair p = board.loadSaveGame();
-                    
-                    //set button's images
-                    setButtonImages();
-                    
-                    //load timer's value                                        
-                    gui.setTimePassed((int)p.getKey());
-
-                    //load mines value
-                    gui.setMines((int)p.getValue());
-                    
-                    gui.startTimer();
-                    
-                    playing = true;
+                    extraerPartida();
                     break;
 
                 case JOptionPane.NO_OPTION:
@@ -151,6 +137,27 @@ public class Game implements MouseListener, ActionListener, WindowListener
                     break;
             }
         }
+    }
+
+    /**
+     * Método refactorizado que encapsula el procedimiento para extraer una partida guardada previamente.
+     */
+    private void extraerPartida() {
+        //load board's state
+        Pair p = board.loadSaveGame();
+        
+        //set button's images
+        setButtonImages();
+        
+        //load timer's value
+        gui.setTimePassed((int)p.getKey());
+        
+        //load mines value
+        gui.setMines((int)p.getValue());
+        
+        gui.startTimer();
+        
+        playing = true;
     }
 
 
