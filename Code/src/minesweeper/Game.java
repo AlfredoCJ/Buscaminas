@@ -81,7 +81,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
         }
         catch (URISyntaxException ex) 
         {
-            System.out.println("Error loading database file.");
+            System.out.println("Error cargando el fichero de la base de datos.");
         }
 
         dbPath =   "jdbc:ucanaccess://" + p;
@@ -118,8 +118,8 @@ public class Game implements MouseListener, ActionListener, WindowListener
         {
             ImageIcon question = new ImageIcon(getClass().getResource("/resources/question.png"));      
 
-            int option = JOptionPane.showOptionDialog(null, "Do you want to continue your saved game?", 
-                            "Saved Game Found", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, question,null,null);
+            int option = JOptionPane.showOptionDialog(null, "¿Quieres continuar la partida?", 
+                            "Juego salvado encontrado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, question,null,null);
 
             switch(option) 
             {
@@ -273,7 +273,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
         JDialog dialog = new JDialog(gui, Dialog.ModalityType.DOCUMENT_MODAL);
         
         //------MESSAGE-----------//
-        JLabel message = new JLabel("Congratulations, you won the game!", SwingConstants.CENTER);
+        JLabel message = new JLabel("Enhorabuena, ¡has ganado la partida!", SwingConstants.CENTER);
                 
         //-----STATISTICS-----------//
         JPanel statistics = new JPanel();
@@ -283,28 +283,28 @@ public class Game implements MouseListener, ActionListener, WindowListener
         
         if (bTimes.isEmpty() || (bTimes.get(0).getTimeValue() > gui.getTimePassed()))
         {
-            statistics.add(new JLabel("    You have the fastest time for this difficulty level!    "));
+            statistics.add(new JLabel("    Has conseguido el mejor tiempo en un nivel díficil!    "));
         }
         
         score.addTime(gui.getTimePassed(), new Date(System.currentTimeMillis()));
                 
-        JLabel time = new JLabel("  Time:  " + Integer.toString(gui.getTimePassed()) + " seconds            Date:  " + new Date(System.currentTimeMillis()));
+        JLabel time = new JLabel("  Tiempo:  " + Integer.toString(gui.getTimePassed()) + " segundos            Fecha:  " + new Date(System.currentTimeMillis()));
         
         JLabel bestTime = new JLabel();
         
         
         if (bTimes.isEmpty())
         {
-            bestTime.setText("  Best Time:  ---                  Date:  ---");
+            bestTime.setText("  Mejor tiempo:  ---                  Fecha:  ---");
         }
         else
         {
-            bestTime.setText("  Best Time:  " + bTimes.get(0).getTimeValue() + " seconds            Date:  " + bTimes.get(0).getDateValue());
+            bestTime.setText("  Mejor tiempo:  " + bTimes.get(0).getTimeValue() + " segundos            Fecha:  " + bTimes.get(0).getDateValue());
         }
         
-        JLabel gPlayed = new JLabel("  Games Played:  " + score.getGamesPlayed());
-        JLabel gWon = new JLabel("  Games Won:  " + score.getGamesWon());
-        JLabel gPercentage = new JLabel("  Win Percentage:  " + score.getWinPercentage() + "%");
+        JLabel gPlayed = new JLabel("  Partidas jugadas:  " + score.getGamesPlayed());
+        JLabel gWon = new JLabel("  Partidas ganadas:  " + score.getGamesWon());
+        JLabel gPercentage = new JLabel("  Porcentaje de ganadas:  " + score.getWinPercentage() + "%");
         
         statistics.add(time);
         statistics.add(bestTime);
@@ -320,8 +320,8 @@ public class Game implements MouseListener, ActionListener, WindowListener
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1,2, DEFAULT_MINES,0));
         
-        JButton exit = new JButton("Exit");
-        JButton playAgain = new JButton("Play Again");
+        JButton exit = new JButton("Salir");
+        JButton playAgain = new JButton("Jugar otra vez");
 
         
         exit.addActionListener((ActionEvent e) -> {
@@ -357,7 +357,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
             }
         );
 
-        dialog.setTitle("Game Won");
+        dialog.setTitle("Juego ganado");
         dialog.add(c);
         dialog.pack();
         dialog.setLocationRelativeTo(gui);
@@ -464,7 +464,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
             }
         );
         
-        dialog.setTitle("Game Lost");
+        dialog.setTitle("Juego perdido");
         dialog.add(c);
         dialog.pack();
         dialog.setLocationRelativeTo(gui);
