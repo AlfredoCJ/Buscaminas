@@ -29,6 +29,19 @@ import minesweeper.Score.Time;
 public class Game implements MouseListener, ActionListener, WindowListener
 {
     /**
+     * Número por defecto de filas en el juego.
+     */
+    private static final int DEFAULT_ROWS = 9;
+    /**
+     * Número por defecto de columnas en el juego.
+     */
+    private static final int DEFAULT_COLS = 9;
+    /**
+     * Número por defecto de minas en el juego.
+     */
+    private static final int DEFAULT_MINES = 10;
+
+    /**
      * Ruta a la base de datos.
      */
     public static String dbPath;
@@ -188,10 +201,10 @@ public class Game implements MouseListener, ActionListener, WindowListener
     public void createBoard()
     {
         // Create a new board        
-        int mines = 10;
+        int mines = DEFAULT_MINES;
 
-        int r = 9;
-        int c = 9;
+        int r = DEFAULT_ROWS;
+        int c = DEFAULT_COLS;
                 
         this.board = new Tablero(mines, r, c);        
     }
@@ -264,7 +277,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
                 
         //-----STATISTICS-----------//
         JPanel statistics = new JPanel();
-        statistics.setLayout(new GridLayout(6,1,0,10));
+        statistics.setLayout(new GridLayout(6,1,0, DEFAULT_MINES));
         
         ArrayList<Time> bTimes = score.getBestTimes();
         
@@ -305,7 +318,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
         
         //--------BUTTONS----------//
         JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(1,2,10,0));
+        buttons.setLayout(new GridLayout(1,2, DEFAULT_MINES,0));
         
         JButton exit = new JButton("Exit");
         JButton playAgain = new JButton("Play Again");
@@ -373,7 +386,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
                 
         //-----STATISTICS-----------//
         JPanel statistics = new JPanel();
-        statistics.setLayout(new GridLayout(5,1,0,10));
+        statistics.setLayout(new GridLayout(5,1,0, DEFAULT_MINES));
         
         JLabel time = new JLabel("  Time:  " + Integer.toString(gui.getTimePassed()) + " seconds");
         
@@ -496,7 +509,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
         //-----STATISTICS-----------//
         JPanel statistics = new JPanel();
         
-        statistics.setLayout(new GridLayout(6,1,0,10));        
+        statistics.setLayout(new GridLayout(6,1,0, DEFAULT_MINES));        
         
         JLabel gPlayed = new JLabel("  Games Played:  " + score.getGamesPlayed());
         JLabel gWon = new JLabel("  Games Won:  " + score.getGamesWon());
@@ -519,7 +532,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
         
         //--------BUTTONS----------//
         JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(1,2,10,0));
+        buttons.setLayout(new GridLayout(1,2, DEFAULT_MINES,0));
         
         JButton close = new JButton("Close");
         JButton reset = new JButton("Reset");
