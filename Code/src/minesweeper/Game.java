@@ -382,13 +382,13 @@ public class Game implements MouseListener, ActionListener, WindowListener
         JDialog dialog = new JDialog(gui, Dialog.ModalityType.DOCUMENT_MODAL);
         
         //------MESSAGE-----------//
-        JLabel message = new JLabel("Sorry, you lost this game. Better luck next time!", SwingConstants.CENTER);
+        JLabel message = new JLabel("Lo siento, has perdido. Buena suerte la próxima vez!", SwingConstants.CENTER);
                 
         //-----STATISTICS-----------//
         JPanel statistics = new JPanel();
         statistics.setLayout(new GridLayout(5,1,0, DEFAULT_MINES));
         
-        JLabel time = new JLabel("  Time:  " + Integer.toString(gui.getTimePassed()) + " seconds");
+        JLabel time = new JLabel("  Tiempo:  " + Integer.toString(gui.getTimePassed()) + " segundos");
         
         JLabel bestTime = new JLabel();
         
@@ -400,12 +400,12 @@ public class Game implements MouseListener, ActionListener, WindowListener
         }
         else
         {
-            bestTime.setText("  Best Time:  " + bTimes.get(0).getTimeValue() + " seconds            Date:  " + bTimes.get(0).getDateValue());
+            bestTime.setText("  Mejor tiempo:  " + bTimes.get(0).getTimeValue() + " segundos            Fecha:  " + bTimes.get(0).getDateValue());
         }
         
-        JLabel gPlayed = new JLabel("  Games Played:  " + score.getGamesPlayed());
-        JLabel gWon = new JLabel("  Games Won:  " + score.getGamesWon());
-        JLabel gPercentage = new JLabel("  Win Percentage:  " + score.getWinPercentage() + "%");
+        JLabel gPlayed = new JLabel("  Juegos jugados:  " + score.getGamesPlayed());
+        JLabel gWon = new JLabel("  Juegos ganados:  " + score.getGamesWon());
+        JLabel gPercentage = new JLabel("  Porcentaje ganados:  " + score.getWinPercentage() + "%");
         
         statistics.add(time);
         statistics.add(bestTime);
@@ -421,9 +421,9 @@ public class Game implements MouseListener, ActionListener, WindowListener
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1,3,2,0));
         
-        JButton exit = new JButton("Exit");
-        JButton restart = new JButton("Restart");
-        JButton playAgain = new JButton("Play Again");
+        JButton exit = new JButton("Salir");
+        JButton restart = new JButton("Reiniciar");
+        JButton playAgain = new JButton("Jugar de nuevo");
 
         
         exit.addActionListener((ActionEvent e) -> {
