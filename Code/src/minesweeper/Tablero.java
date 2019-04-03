@@ -13,7 +13,7 @@ import javafx.util.Pair;
  * 
  * @author Haris Muneer.
  */
-public class Board 
+public class Tablero 
 {
     /**
      * Número de minas en la partida.
@@ -40,7 +40,7 @@ public class Board
     /**
      * Constructor de la clase.
      */
-    public Board(int numberOfMines, int r, int c)
+    public Tablero(int numberOfMines, int r, int c)
     {
         this.rows = r;
         this.cols = c;

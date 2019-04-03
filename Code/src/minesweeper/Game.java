@@ -41,7 +41,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
     /**
      * El tablero de la partida.
      */
-    private Board board;
+    private Tablero board;
 
     /**
      * Ventana que muestra la partida.
@@ -193,7 +193,7 @@ public class Game implements MouseListener, ActionListener, WindowListener
         int r = 9;
         int c = 9;
                 
-        this.board = new Board(mines, r, c);        
+        this.board = new Tablero(mines, r, c);        
     }
     
 
